@@ -50,7 +50,7 @@ try:
     	    drawblack.text((30,-10),'{0:0.1f}C'.format(temperature), font = font64, fill = 0)
     	    drawblack.text((30,50),'{0:0.1f}%'.format(humidity), font = font64, fill = 0)
 	    drawblack.text((2, 112), datetime.datetime.now().strftime("%H:%M"), font = font9, fill = 0)
-	
+        HBlackimage = HBlackimage.transpose(Image.ROTATE_180)
         epd.display(epd.getbuffer(HBlackimage))
 	
         epd.sleep()
