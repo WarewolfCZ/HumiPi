@@ -9,7 +9,9 @@
     "version" : "1.0.0",
     "title" : "HumiPi API",
     "contact" : {
-      "email" : "info@warewolf.cz"
+      "email" : "info@warewolf.cz",
+      "name" : "WarewolfCZ",
+      "url" : "https://warewolf.cz"
     },
     "license" : {
       "name" : "Apache 2.0",
