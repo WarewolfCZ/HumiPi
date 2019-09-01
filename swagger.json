@@ -1,0 +1,278 @@
+{
+  "openapi" : "3.0.0",
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/WarewolfCZ/WeatherPiAPI/1.0.0"
+  } ],
+  "info" : {
+    "description" : "WeatherPi API",
+    "version" : "1.0.0",
+    "title" : "WeatherPi API",
+    "contact" : {
+      "email" : "info@warewolf.cz"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "authorized",
+    "description" : "Secured calls"
+  }, {
+    "name" : "public",
+    "description" : "Operations available to non-authorized users"
+  } ],
+  "paths" : {
+    "/data" : {
+      "get" : {
+        "tags" : [ "public" ],
+        "summary" : "retrieves measurement data",
+        "operationId" : "getData",
+        "description" : "You can define time interval from which you want to retrieve the data. By omitting it you will get only the last measurement\n",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "units",
+          "description" : "Temperature measurement units C or F",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "default" : "C",
+            "enum" : [ "C", "F" ]
+          }
+        }, {
+          "in" : "query",
+          "name" : "intervalStart",
+          "description" : "optional interval start, excluding (unix timestamp)",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64",
+            "minimum" : 0
+          }
+        }, {
+          "in" : "query",
+          "name" : "intervalEnd",
+          "description" : "optional interval end, including (unix timestamp)",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64",
+            "minimum" : 0
+          }
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 200,
+            "minimum" : 1,
+            "maximum" : 1500
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "measurement data matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/MeasurementData"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/config" : {
+      "get" : {
+        "tags" : [ "authorized" ],
+        "summary" : "read service configuration",
+        "operationId" : "readConfig",
+        "description" : "Retrieve service configuration",
+        "responses" : {
+          "200" : {
+            "description" : "Current configuration",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Configuration"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "authorized" ],
+        "summary" : "configure the service",
+        "operationId" : "writeConfig",
+        "description" : "Configure the WeatherPi service",
+        "responses" : {
+          "200" : {
+            "description" : "configuration updated"
+          },
+          "400" : {
+            "description" : "invalid request"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Configuration"
+              }
+            }
+          },
+          "description" : "Configuration"
+        }
+      }
+    },
+    "/status" : {
+      "get" : {
+        "tags" : [ "authorized" ],
+        "summary" : "device status",
+        "operationId" : "status",
+        "description" : "Read device status",
+        "responses" : {
+          "200" : {
+            "description" : "device status",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Status"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shutdown" : {
+      "post" : {
+        "tags" : [ "authorized" ],
+        "summary" : "shutdown the device",
+        "operationId" : "shutdown",
+        "description" : "Request the device shutdown",
+        "responses" : {
+          "200" : {
+            "description" : "command accepted"
+          },
+          "204" : {
+            "description" : "request already received"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    },
+    "/reboot" : {
+      "post" : {
+        "tags" : [ "authorized" ],
+        "summary" : "reboot the device",
+        "operationId" : "reboot",
+        "description" : "Request the device reboot",
+        "responses" : {
+          "200" : {
+            "description" : "command accepted"
+          },
+          "204" : {
+            "description" : "request already received"
+          },
+          "401" : {
+            "description" : "unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "MeasurementData" : {
+        "type" : "object",
+        "required" : [ "timestamp", "temperature", "humidity" ],
+        "properties" : {
+          "timestamp" : {
+            "description" : "Seconds since Jan 01 1970. (UTC)",
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 1567327876
+          },
+          "temperature" : {
+            "description" : "Temperature (°C or °F, based on query parameter)",
+            "type" : "number",
+            "format" : "number",
+            "example" : 29.1
+          },
+          "humidity" : {
+            "description" : "Relative humidity %",
+            "type" : "number",
+            "format" : "number",
+            "example" : 58.7
+          }
+        }
+      },
+      "Configuration" : {
+        "type" : "object",
+        "required" : [ "updateInterval", "displayInterval", "historySize" ],
+        "properties" : {
+          "updateInterval" : {
+            "description" : "Measurement interval [seconds]",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 600,
+            "example" : 600
+          },
+          "displayInterval" : {
+            "description" : "Display update interval [seconds]",
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 600,
+            "example" : 600
+          },
+          "historySize" : {
+            "description" : "Historic data buffer [days]",
+            "type" : "integer",
+            "format" : "in32",
+            "default" : 120,
+            "example" : 90
+          }
+        }
+      },
+      "Status" : {
+        "type" : "object",
+        "required" : [ "uptime", "diskFree" ],
+        "properties" : {
+          "uptime" : {
+            "description" : "System uptime [seconds]",
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 9587
+          },
+          "diskFree" : {
+            "description" : "Free disk space [kilobytes]",
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 3732672
+          }
+        }
+      }
+    }
+  }
+}
