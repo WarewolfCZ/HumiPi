@@ -1,0 +1,3 @@
+
+*/10 * * * * /bin/bash -c "cd /home/pi/HumiPi/ && ./humipi.py" > /var/log/humipi.log 2>&1
+@reboot /bin/bash -c "cd /home/pi/HumiPi/ && ./humipi.py" > /var/log/humipi.log 2>&1
