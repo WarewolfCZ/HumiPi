@@ -2,12 +2,15 @@
   "openapi" : "3.0.0",
   "servers" : [ {
     "description" : "SwaggerHub API Auto Mocking",
-    "url" : "https://virtserver.swaggerhub.com/WarewolfCZ/WeatherPiAPI/1.0.0"
+    "url" : "https://virtserver.swaggerhub.com/WarewolfCZ/HumiPi/1.0.0"
+  }, {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/WarewolfCZ/HumiPiAPI/1.0.0"
   } ],
   "info" : {
-    "description" : "WeatherPi API",
+    "description" : "HumiPi API",
     "version" : "1.0.0",
-    "title" : "WeatherPi API",
+    "title" : "HumiPi API",
     "contact" : {
       "email" : "info@warewolf.cz"
     },
@@ -119,7 +122,7 @@
         "tags" : [ "authorized" ],
         "summary" : "configure the service",
         "operationId" : "writeConfig",
-        "description" : "Configure the WeatherPi service",
+        "description" : "Configure the HumiPi service",
         "responses" : {
           "200" : {
             "description" : "configuration updated"
