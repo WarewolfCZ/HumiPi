@@ -22,7 +22,7 @@ font9 = ImageFont.truetype('./lib/Font.ttc', 9)
 
 try:
     locale.setlocale(locale.LC_ALL, 'cs_CZ.utf8')
-    print("WeatherPi by WarewolfCZ")
+    print("HumiPi by WarewolfCZ")
     
     while True:
         # Try to grab a sensor reading.  Use the read_retry method which will retry up

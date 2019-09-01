@@ -1,2 +1,2 @@
-# WeatherPi
-Weather info on eInk display with Raspberry Pi Zero
+# HumiPi
+Home humidity and temperature sensor with eInk display
