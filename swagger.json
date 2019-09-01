@@ -17,11 +17,11 @@
     }
   },
   "tags" : [ {
-    "name" : "authorized",
-    "description" : "Secured calls"
-  }, {
     "name" : "public",
     "description" : "Operations available to non-authorized users"
+  }, {
+    "name" : "authorized",
+    "description" : "Secured calls"
   } ],
   "paths" : {
     "/data" : {
