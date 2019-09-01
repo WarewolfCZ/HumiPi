@@ -3,9 +3,6 @@
   "servers" : [ {
     "description" : "SwaggerHub API Auto Mocking",
     "url" : "https://virtserver.swaggerhub.com/WarewolfCZ/HumiPi/1.0.0"
-  }, {
-    "description" : "SwaggerHub API Auto Mocking",
-    "url" : "https://virtserver.swaggerhub.com/WarewolfCZ/HumiPiAPI/1.0.0"
   } ],
   "info" : {
     "description" : "HumiPi API",
