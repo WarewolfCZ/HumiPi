@@ -31,7 +31,7 @@
         "tags" : [ "public" ],
         "summary" : "retrieves measurement data",
         "operationId" : "getData",
-        "description" : "You can define time interval from which you want to retrieve the data. By omitting it you will get only the last measurement\n",
+        "description" : "You can define time interval from which you want to retrieve the data. By omitting it you will get only the last measurement",
         "parameters" : [ {
           "in" : "query",
           "name" : "units",
